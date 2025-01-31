@@ -54,6 +54,34 @@
         android:layout_marginTop="20dp"
         android:text="Respuesta: ?" />
 
+    <RadioGroup
+        android:id="@+id/rgoOpciones"
+        android:layout_marginTop="220dp"
+        android:layout_marginLeft="240dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <RadioButton
+            android:id="@+id/optsuma"
+            android:text="sumar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    <RadioButton
+        android:id="@+id/optresta"
+android:text="restar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"  />
+    <RadioButton
+        android:id="@+id/optmultiplicacion"
+        android:text="multiplicacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <RadioButton
+        android:id="@+id/optdivision"
+        android:text="division"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    </RadioGroup>
     <!-- Botón Calcular -->
     <Button
         android:id="@+id/btnCalcular"
