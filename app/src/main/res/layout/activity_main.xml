@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <!-- Campo de texto Num1 -->
+    <!--  texto Num1 -->
     <EditText
         android:id="@+id/txtNum1"
         android:hint="ej. 5"
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <!-- Campo de texto Num2 -->
+    <!--  texto Num2 -->
     <EditText
         android:id="@+id/txtNum2"
         android:hint="ej. 4.8"

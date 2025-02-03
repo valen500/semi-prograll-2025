@@ -21,25 +21,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Inicialización de vistas
+        //   vistas
         btn = findViewById(R.id.btnCalcular);
         txtNum1 = findViewById(R.id.txtNum1);
         txtNum2 = findViewById(R.id.txtNum2);
         lblRespuesta = findViewById(R.id.lblRespuesta);
         spnOpciones = findViewById(R.id.spnOpciones);
 
-        // Evento del botón
+
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String msg = ""; // Mover la declaración fuera del try-catch
+                String msg = "";
                 try {
                     // Obtener valores numéricos
                     double num1 = txtNum1.getText().toString().isEmpty() ? 0 : Double.parseDouble(txtNum1.getText().toString());
                     double num2 = txtNum2.getText().toString().isEmpty() ? 0 : Double.parseDouble(txtNum2.getText().toString());
                     double resultado = 0.0;
 
-                    // Seleccionar la operación según el Spinner
+                    //  operación según el Spinner
                     switch (spnOpciones.getSelectedItemPosition()) {
                         case 0: // Suma
                             resultado = num1 + num2;
@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
                 } catch (NumberFormatException e) {
                     lblRespuesta.setText("Error: Ingresa números válidos.");
-                    msg = "Error: Ingresa números válidos."; // Asignar un mensaje en caso de excepción
+                    msg = "Error: Ingresa números válidos."; //
                     Toast.makeText(MainActivity.this, msg, Toast.LENGTH_LONG).show();
                 }
             }
