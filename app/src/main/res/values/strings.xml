@@ -1,13 +1,15 @@
 <resources>
     <string name="app_name">Miprimeraaplicacion</string>
-    <string-array name="monedas">
-        <item>Dolar</item>
-        <item>Euro</item>
-        <item>Quetzalez</item>
-        <item>Lempiras</item>
-        <item>Cordobas</item>
-        <item>Colon CR</item>
-        <item>Colon SV</item>
+    <string-array name="opciones">
+        <item>Suma</item>
+        <item>Resta</item>
+        <item>Multiplicacion</item>
+        <item>Division</item>
+        <item>Exponente</item>
+        <item>Porcentaje</item>
+        <item>Raiz</item>
+        <item>Factorial</item>
+        <item>resto o residuo</item>
+        <item>Mayor de 2 números</item>
     </string-array>
-
 </resources>
