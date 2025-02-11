@@ -1,4 +1,3 @@
-// MainActivity.java
 package com.example.miprimeraaplicacion;
 
 import android.os.Bundle;
@@ -6,113 +5,125 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
+    TabHost tbh;
     Button btn;
+    EditText txtCantidad;
     TextView lblRespuesta;
-    Spinner spnOpciones;
-    EditText txtNum1, txtNum2;
+    Spinner spnDe, spnA;
+    Conversores objConversores = new Conversores();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Iniciar vistas
+        tbh = findViewById(R.id.tbhConversor);
+        tbh.setup();
+        tbh.addTab(tbh.newTabSpec("Monedas").setContent(R.id.tabMonedas).setIndicator("MONEDAS"));
+        tbh.addTab(tbh.newTabSpec("Longitud").setContent(R.id.tabLongitud).setIndicator("LONGITUD"));
+        tbh.addTab(tbh.newTabSpec("Tiempo").setContent(R.id.tabTiempo).setIndicator("TIEMPO"));
+        tbh.addTab(tbh.newTabSpec("Almacenamiento").setContent(R.id.tabAlmacenamiento).setIndicator("ALMACENAMIENTO"));
+        tbh.addTab(tbh.newTabSpec("Masa").setContent(R.id.tabMasa).setIndicator("MASA"));
+        tbh.addTab(tbh.newTabSpec("Volumen").setContent(R.id.tabVolumen).setIndicator("VOLUMEN"));
+
         btn = findViewById(R.id.btnCalcular);
-        txtNum1 = findViewById(R.id.txtNum1);
-        txtNum2 = findViewById(R.id.txtNum2);
+        txtCantidad = findViewById(R.id.txtCantidad);
         lblRespuesta = findViewById(R.id.lblRespuesta);
-        spnOpciones = findViewById(R.id.spnOpciones);
 
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String msg = "";
-                try {
-                    double num1 = txtNum1.getText().toString().isEmpty() ? 0 : Double.parseDouble(txtNum1.getText().toString());
-                    double num2 = txtNum2.getText().toString().isEmpty() ? 0 : Double.parseDouble(txtNum2.getText().toString());
-                    double resultado = 0.0;
+                int opcion = tbh.getCurrentTab();
 
-                    switch (spnOpciones.getSelectedItemPosition()) {
-                        case 0: // Suma
-                            resultado = num1 + num2;
-                            msg = "La suma es: " + resultado;
-                            break;
-                        case 1: // Resta
-                            resultado = num1 - num2;
-                            msg = "La resta es: " + resultado;
-                            break;
-                        case 2: // Multiplicación
-                            resultado = num1 * num2;
-                            msg = "La multiplicación es: " + resultado;
-                            break;
-                        case 3: // División
-                            if (num2 == 0) {
-                                msg = "Error: División por cero.";
-                                break;
-                            }
-                            resultado = num1 / num2;
-                            msg = "La división es: " + resultado;
-                            break;
-                        case 4: // Exponente
-                            resultado = Math.pow(num1, num2);
-                            msg = "El exponente es: " + resultado;
-                            break;
-                        case 5: // Porcentaje
-                            resultado = (num1 * num2) / 100;
-                            msg = "El porcentaje es: " + resultado;
-                            break;
-                        case 6: // Raíz cuadrada
-                            if (num1 < 0) {
-                                msg = "Error: No se puede calcular la raíz de un número negativo.";
-                                break;
-                            }
-                            resultado = Math.sqrt(num1);
-                            msg = "La raíz cuadrada es: " + resultado;
-                            break;
-                        case 7: // Factorial
-                            if (num1 < 0 || num1 != (int) num1) {
-                                msg = "Error: Factorial solo se aplica a enteros positivos.";
-                                break;
-                            }
-                            int n = (int) num1;
-                            resultado = 1;
-                            for (int i = 1; i <= n; i++) {
-                                resultado *= i;
-                            }
-                            msg = "El factorial es: " + resultado;
-                            break;
-                        case 8: // resto o residuo
-                            if (num2 == 0) {
-                                msg = "Error: División por cero.";
-                                break;
-                            }
-                            resultado = num1 % num2;
-                            msg = "El módulo es: " + resultado;
-                            break;
-                        case 9: // Mayor de 2 números
-                            resultado = Math.max(num1, num2);
-                            msg = "El mayor número es: " + resultado;
-                            break;
-                        default:
-                            msg = "Error: Operación no válida.";
-                            break;
+                switch (opcion) {
+                    case 0:
+                        spnDe = findViewById(R.id.spnDeMonedas);
+                        spnA = findViewById(R.id.spnAMonedas);
+                        break;
+                    case 1:
+                        spnDe = findViewById(R.id.spnDeLongitud);
+                        spnA = findViewById(R.id.spnALongitud);
+                        break;
+                    case 2:
+                        spnDe = findViewById(R.id.spnDeTiempo);
+                        spnA = findViewById(R.id.spnATiempo);
+                        break;
+                    case 3:
+                        spnDe = findViewById(R.id.spnDeAlmacenamiento);
+                        spnA = findViewById(R.id.spnAAlmacenamiento);
+                        break;
+                    case 4:
+                        spnDe = findViewById(R.id.spnDeMasa);
+                        spnA = findViewById(R.id.spnAMasa);
+                        break;
+                    case 5:
+                        spnDe = findViewById(R.id.spnDeVolumen);
+                        spnA = findViewById(R.id.spnAVolumen);
+                        break;
+                    default:
+                        return;
+                }
+
+                int de = spnDe.getSelectedItemPosition();
+                int a = spnA.getSelectedItemPosition();
+
+                try {
+                    String cantidadStr = txtCantidad.getText().toString();
+                    if (cantidadStr.isEmpty()) {
+                        mostrarMensaje("Ingrese una cantidad");
+                        return;
                     }
 
-                    lblRespuesta.setText("Respuesta: " + msg);
-                    Toast.makeText(MainActivity.this, msg, Toast.LENGTH_LONG).show();
+                    double cantidad = Double.parseDouble(cantidadStr);
+                    double respuesta = objConversores.convertir(opcion, de, a, cantidad);
+                    if (respuesta != -1) {
+                        String mensaje = "Conversión realizada con éxito. Resultado: " + respuesta;
+                        lblRespuesta.setText("Respuesta: " + respuesta);
+                        mostrarMensaje(mensaje);
+                    } else {
+                        mostrarMensaje("Error en la conversión");
+                    }
 
                 } catch (NumberFormatException e) {
-                    lblRespuesta.setText("Error: Ingresa números válidos.");
-                    msg = "Error: Ingresa números válidos.";
-                    Toast.makeText(MainActivity.this, msg, Toast.LENGTH_LONG).show();
+                    mostrarMensaje("Ingrese un valor numérico válido");
                 }
             }
         });
+    }
+
+    private void mostrarMensaje(String mensaje) {
+        Toast.makeText(MainActivity.this, mensaje, Toast.LENGTH_LONG).show();
+    }
+}
+
+class Conversores {
+    //  valores de los elementos por cada tipo de conversión
+    double[][] valores = {
+            // Monedas
+            {1, 0.98, 7.73, 25.45, 36.78, 508.87, 8.74, 0.85, 1.21, 0.64},
+            // Longitud
+            {1, 0.001, 100, 39.37, 3.28, 1.094, 0.621371, 1000, 0.001, 1.09361},
+            // Tiempo
+            {1, 1.0/60, 1.0/3600, 1.0/86400, 1.0/604800, 1.0/2628000, 1.0/31536000, 1000, 0.001, 1.0/86400},
+            // Almacenamiento
+            {1, 1.0/1024, 1.0/1048576, 1.0/1073741824, 1000, 0.001, 0.000001, 1.0/1048576, 1.0/1073741824, 1000000},
+            // Masa
+            {1, 1000, 0.001, 35.274, 2.20462, 0.0283495, 0.000984207, 1000, 1, 0.00220462},
+            // Volumen
+            {1, 1000, 1000, 0.264172, 2.11338, 1000, 0.000264172, 0.0353147, 1, 0.0353147}
+    };
+
+    public double convertir(int opcion, int de, int a, double cantidad) {
+        if (opcion >= valores.length || de >= valores[opcion].length || a >= valores[opcion].length || cantidad < 0) {
+            return -1;
+        }
+        return valores[opcion][a] / valores[opcion][de] * cantidad;
     }
 }

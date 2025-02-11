@@ -2,72 +2,296 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- Etiqueta Num1 -->
-    <TextView
-        android:id="@+id/lblNum1"
-        android:text="Num 1:"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+    <TabHost
+        android:id="@+id/tbhConversor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <!--  texto Num1 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <!-- Pestaña de Monedas -->
+                <RelativeLayout
+                    android:id="@+id/tabMonedas"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/lblDeMonedas"
+                        android:text="DE: "
+                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <Spinner
+                        android:entries="@array/monedas"
+                        android:id="@+id/spnDeMonedas"
+                        android:layout_below="@id/lblDeMonedas"
+                        android:layout_marginLeft="80dp"
+                        android:layout_marginTop="-20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/lblAMonedas"
+                        android:text="A: "
+                        android:layout_below="@id/spnDeMonedas"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <Spinner
+                        android:entries="@array/monedas"
+                        android:id="@+id/spnAMonedas"
+                        android:layout_below="@id/spnDeMonedas"
+                        android:layout_marginLeft="80dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <!-- Pestaña de Masa -->
+                <RelativeLayout
+                    android:id="@+id/tabMasa"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/lblDeMasa"
+                        android:text="DE: "
+                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <Spinner
+                        android:entries="@array/masa"
+                        android:id="@+id/spnDeMasa"
+                        android:layout_below="@id/lblDeMasa"
+                        android:layout_marginLeft="80dp"
+                        android:layout_marginTop="-20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/lblAMasa"
+                        android:text="A: "
+                        android:layout_below="@id/spnDeMasa"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <Spinner
+                        android:entries="@array/masa"
+                        android:id="@+id/spnAMasa"
+                        android:layout_below="@id/spnDeMasa"
+                        android:layout_marginLeft="80dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <!-- Pestaña de Volumen -->
+                <RelativeLayout
+                    android:id="@+id/tabVolumen"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    <TextView
+                        android:id="@+id/lblDeVolumen"
+                        android:text="DE: "
+                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <Spinner
+                        android:entries="@array/volumen"
+                        android:id="@+id/spnDeVolumen"
+                        android:layout_below="@id/lblDeVolumen"
+                        android:layout_marginLeft="80dp"
+                        android:layout_marginTop="-20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:id="@+id/lblAVolumen"
+                        android:text="A: "
+                        android:layout_below="@id/spnDeVolumen"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                    <Spinner
+                        android:entries="@array/volumen"
+                        android:id="@+id/spnAVolumen"
+                        android:layout_below="@id/spnDeVolumen"
+                        android:layout_marginLeft="80dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+
+                <!-- Pestaña de Longitud -->
+                <RelativeLayout
+                    android:id="@+id/tabLongitud"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/lblDeLongitud"
+                        android:text="DE: "
+                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <Spinner
+                        android:entries="@array/longitud"
+                        android:id="@+id/spnDeLongitud"
+                        android:layout_below="@id/lblDeLongitud"
+                        android:layout_marginLeft="80dp"
+                        android:layout_marginTop="-20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/lblALongitud"
+                        android:text="A: "
+                        android:layout_below="@id/spnDeLongitud"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <Spinner
+                        android:entries="@array/longitud"
+                        android:id="@+id/spnALongitud"
+                        android:layout_below="@id/spnDeLongitud"
+                        android:layout_marginLeft="80dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <!-- Pestaña de Tiempo -->
+                <RelativeLayout
+                    android:id="@+id/tabTiempo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/lblDeTiempo"
+                        android:text="DE: "
+                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <Spinner
+                        android:entries="@array/tiempo"
+                        android:id="@+id/spnDeTiempo"
+                        android:layout_below="@id/lblDeTiempo"
+                        android:layout_marginLeft="80dp"
+                        android:layout_marginTop="-20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/lblATiempo"
+                        android:text="A: "
+                        android:layout_below="@id/spnDeTiempo"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <Spinner
+                        android:entries="@array/tiempo"
+                        android:id="@+id/spnATiempo"
+                        android:layout_below="@id/spnDeTiempo"
+                        android:layout_marginLeft="80dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>
+
+                <!-- Pestaña de Almacenamiento -->
+                <RelativeLayout
+                    android:id="@+id/tabAlmacenamiento"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/lblDeAlmacenamiento"
+                        android:text="DE: "
+                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <Spinner
+                        android:entries="@array/almacenamiento"
+                        android:id="@+id/spnDeAlmacenamiento"
+                        android:layout_below="@id/lblDeAlmacenamiento"
+                        android:layout_marginLeft="80dp"
+                        android:layout_marginTop="-20dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/lblAAlmacenamiento"
+                        android:text="A: "
+                        android:layout_below="@id/spnDeAlmacenamiento"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <Spinner
+                        android:entries="@array/almacenamiento"
+                        android:id="@+id/spnAAlmacenamiento"
+                        android:layout_below="@id/spnDeAlmacenamiento"
+                        android:layout_marginLeft="80dp"
+                        android:layout_marginTop="40dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                </RelativeLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
     <EditText
-        android:id="@+id/txtNum1"
-        android:hint="ej. 5"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="80dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <!-- Etiqueta Num2 -->
-    <TextView
-        android:id="@+id/lblNum2"
-        android:text="Num 2:"
-        android:layout_marginTop="120dp"
-        android:layout_marginLeft="20dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <!--  texto Num2 -->
-    <EditText
-        android:id="@+id/txtNum2"
-        android:hint="ej. 4.8"
-        android:layout_marginTop="110dp"
-        android:layout_marginLeft="80dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <Spinner
-        android:id="@+id/spnOpciones"
-        android:layout_below="@id/txtNum2"
-        android:entries="@array/opciones"
+        android:hint="Cantidad"
+        android:layout_below="@+id/tbhConversor"
         android:layout_marginTop="40dp"
-        android:layout_marginLeft="20dp"
+        android:id="@+id/txtCantidad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <!-- Etiqueta Respuesta -->
-    <TextView
-        android:id="@+id/lblRespuesta"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_below="@id/spnOpciones"
-        android:layout_marginTop="40dp"
-        android:text="Respuesta: ?" />
-
-    <!-- Botón Calcular -->
     <Button
         android:id="@+id/btnCalcular"
-        android:layout_below="@id/lblRespuesta"
+        android:layout_below="@+id/txtCantidad"
         android:layout_marginTop="40dp"
-        android:text="Calcular"
+        android:text="CALCULAR"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/lblRespuesta"
+        android:layout_below="@+id/btnCalcular"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        android:text="Respuesta: ?"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 </RelativeLayout>
