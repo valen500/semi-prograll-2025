@@ -1,4 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Mi Aplicación</string>
 
+
+    <string-array name="unidades_area">
+        <item>Metro Cuadrado</item>
+        <item>Pie Cuadrado</item>
+        <item>Vara Cuadrada</item>
+        <item>Yarda Cuadrada</item>
+        <item>Tarea</item>
+        <item>Manzana</item>
+        <item>Hectárea</item>
+    </string-array>
 </resources>

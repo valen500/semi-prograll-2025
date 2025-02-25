@@ -1,99 +1,148 @@
 package com.example.miprimeraaplicacion;
 
 import android.os.Bundle;
-import android.media.MediaPlayer;
-import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TabHost;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView tempVal;
-    Button btnIniciar, btnPausar, btnParar;
-    MediaPlayer mediaPlayer;
+    private EditText inputMetros, inputValor;
+    private TextView txtResultadoAgua, txtResultadoConversion;
+    private Spinner spDe, spA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Inicialización de vistas
-        tempVal = findViewById(R.id.lblReproductorMusica);
-        btnIniciar = findViewById(R.id.btnIniciar);
-        btnPausar = findViewById(R.id.btnPausar);
-        btnParar = findViewById(R.id.btnParar);
+        TabHost tabHost = findViewById(android.R.id.tabhost);
+        tabHost.setup();
 
-        // Inicializar el reproductor de música
-        reproductorMusica();
+        TabHost.TabSpec spec1 = tabHost.newTabSpec("Agua");
+        spec1.setIndicator("Tarifa de Agua");
+        spec1.setContent(R.id.tab1);
+        tabHost.addTab(spec1);
 
-        // Definir la acción del botón Iniciar
-        btnIniciar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                iniciar();
-            }
-        });
+        TabHost.TabSpec spec2 = tabHost.newTabSpec("Conversor");
+        spec2.setIndicator("Conversor de Área");
+        spec2.setContent(R.id.tab2);
+        tabHost.addTab(spec2);
 
-        // Definir la acción del botón Pausar
-        btnPausar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                pausar();
-            }
-        });
+        inputMetros = findViewById(R.id.inputMetros);
+        txtResultadoAgua = findViewById(R.id.txtResultadoAgua);
+        Button btnCalcularAgua = findViewById(R.id.btnCalcularAgua);
 
-        // Definir la acción del botón Parar
-        btnParar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                detener();
-            }
-        });
+        btnCalcularAgua.setOnClickListener(v -> calcularTarifaAgua());
+
+        inputValor = findViewById(R.id.inputValor);
+        spDe = findViewById(R.id.spDe);
+        spA = findViewById(R.id.spA);
+        txtResultadoConversion = findViewById(R.id.txtResultadoConversion);
+        Button btnConvertir = findViewById(R.id.btnConvertir);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.unidades_area, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spDe.setAdapter(adapter);
+        spA.setAdapter(adapter);
+
+        btnConvertir.setOnClickListener(v -> convertirArea());
     }
 
-    // Método para inicializar el reproductor de música
-    void reproductorMusica() {
-        // Si ya existe un MediaPlayer, lo liberamos antes de crear uno nuevo
-        if (mediaPlayer != null) {
-            mediaPlayer.release();
+    private void calcularTarifaAgua() {
+        String inputText = inputMetros.getText().toString();
+        if (inputText.isEmpty()) {
+            txtResultadoAgua.setText("Ingrese un valor válido");
+            return;
         }
-        mediaPlayer = MediaPlayer.create(this, R.raw.audio);
+
+        int metros = Integer.parseInt(inputText);
+        double totalPagar;
+
+        if (metros <= 18) {
+            totalPagar = 6.00;
+        } else if (metros <= 28) {
+            totalPagar = 6.00 + (metros - 18) * 0.45;
+        } else {
+            totalPagar = 6.00 + (10 * 0.45) + (metros - 28) * 0.65;
+        }
+
+        txtResultadoAgua.setText("Valor a Pagar: $" + String.format("%.2f", totalPagar));
     }
 
-    // Método para iniciar la reproducción
-    void iniciar() {
-        if (mediaPlayer != null) {
-            mediaPlayer.start();
-            tempVal.setText("Reproduciendo...");
+    private void convertirArea() {
+        String inputText = inputValor.getText().toString();
+        if (inputText.isEmpty()) {
+            txtResultadoConversion.setText("Ingrese un valor válido");
+            return;
         }
+
+        double valor = Double.parseDouble(inputText);
+        String unidadDe = spDe.getSelectedItem().toString();
+        String unidadA = spA.getSelectedItem().toString();
+        double resultado = convertirUnidad(valor, unidadDe, unidadA);
+
+        txtResultadoConversion.setText("Resultado: " + resultado + " " + unidadA);
     }
 
-    // Método para pausar la reproducción
-    void pausar() {
-        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
-            mediaPlayer.pause();
-            tempVal.setText("Pausado...");
-        }
-    }
+    private double convertirUnidad(double valor, String de, String a) {
+        double metroCuadrado = 0;
 
-    // Método para detener la reproducción
-    void detener() {
-        if (mediaPlayer != null) {
-            mediaPlayer.stop();
-            tempVal.setText("Detenido...");
-            reproductorMusica(); // Reiniciar el reproductor
+        switch (de) {
+            case "Pie Cuadrado":
+                metroCuadrado = valor * 0.093;
+                break;
+            case "Vara Cuadrada":
+                metroCuadrado = valor * 0.6984;
+                break;
+            case "Yarda Cuadrada":
+                metroCuadrado = valor * 0.8361;
+                break;
+            case "Tarea":
+                metroCuadrado = valor * 16;
+                break;
+            case "Manzana":
+                metroCuadrado = valor * 7000;
+                break;
+            case "Hectárea":
+                metroCuadrado = valor * 10000;
+                break;
+            default:
+                metroCuadrado = valor;
+                break;
         }
-    }
 
-    @Override
-    protected void onDestroy() {
-        // Liberar recursos cuando la actividad sea destruida
-        if (mediaPlayer != null) {
-            mediaPlayer.release();
-            mediaPlayer = null;
+        double resultado = 0;
+
+        switch (a) {
+            case "Pie Cuadrado":
+                resultado = metroCuadrado / 0.093;
+                break;
+            case "Vara Cuadrada":
+                resultado = metroCuadrado / 0.6988;
+                break;
+            case "Yarda Cuadrada":
+                resultado = metroCuadrado / 0.8361;
+                break;
+            case "Tarea":
+                resultado = metroCuadrado / 6988;
+                break;
+            case "Manzana":
+                resultado = metroCuadrado / 111808;
+                break;
+            case "Hectárea":
+                resultado = metroCuadrado / 10000;
+                break;
+            default:
+                resultado = metroCuadrado;
+                break;
         }
-        super.onDestroy();
+
+        return resultado;
     }
 }
