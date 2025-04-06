@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etCodigo"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Código"
+        android:padding="12dp" />
+
+    <EditText
+        android:id="@+id/etDescripcion"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Descripción"
+        android:padding="12dp" />
+
+    <EditText
+        android:id="@+id/etPresentacion"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Presentación"
+        android:padding="12dp" />
+
+    <EditText
+        android:id="@+id/etMarca"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Marca"
+        android:padding="12dp" />
+
+    <EditText
+        android:id="@+id/etPrecio"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:hint="Precio"
+        android:inputType="numberDecimal"
+        android:padding="12dp" />
+
+    <Button
+        android:id="@+id/btneditar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="EDITAR PRODUCTO "
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>

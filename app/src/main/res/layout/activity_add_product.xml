@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Imagen del Producto -->
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:contentDescription="Imagen del producto"
+            android:src="@drawable/logo"
+            android:scaleType="centerCrop"/>
+
+        <!-- Botón para agregar imagen -->
+        <Button
+            android:id="@+id/btnAgregarImagen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agregar Imagen"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Campos de texto -->
+        <EditText
+            android:id="@+id/etCodigo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Código"
+            android:inputType="text"
+            android:padding="12dp"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/etDescripcion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Descripción"
+            android:inputType="text"
+            android:padding="12dp"
+            android:layout_marginTop="8dp"/>
+
+        <EditText
+            android:id="@+id/etPresentacion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Presentación"
+            android:inputType="text"
+            android:padding="12dp"
+            android:layout_marginTop="8dp"/>
+
+        <EditText
+            android:id="@+id/etMarca"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Marca"
+            android:inputType="text"
+            android:padding="12dp"
+            android:layout_marginTop="8dp"/>
+
+        <EditText
+            android:id="@+id/etPrecio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Precio"
+            android:inputType="numberDecimal"
+            android:padding="12dp"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Botón para guardar producto -->
+        <Button
+            android:id="@+id/btnGuardar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GUARDAR PRODUCTO"
+            android:layout_marginTop="16dp"/>
+    </LinearLayout>
+</ScrollView>

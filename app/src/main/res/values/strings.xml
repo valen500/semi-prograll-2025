@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">Agenda</string>
-
+    <string name="app_name"></string>
+    <string name="edit_button_description">Editar</string>
+    <string name="delete_button_description">Eliminar</string>
 </resources>
