@@ -1,73 +1,52 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="@drawable/fondo">
+    android:background="#FAFAFA">
 
-
-
-
-    <EditText
-        android:id="@+id/etSearch"
+    <!-- Fondo del RecyclerView con margen -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerCarros"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/purple_500"
-
-        android:hint="Buscar producto"
-        android:inputType="text"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/containerBotones"
         android:padding="8dp"
-        android:layout_marginTop="8dp" />
-
-
-    <ImageView
-        android:id="@+id/imgLogo"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/logo"
-        android:scaleType="centerCrop"
-        android:layout_marginTop="40dp"
-        android:padding="8dp"
-        android:layout_below="@id/etSearch" />
-
-
-    <TextView
-        android:id="@+id/txtTitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/imgLogo"
-        android:layout_centerHorizontal="true"
-        android:text="CIV CAR STORE"
-        android:textSize="30dp"
-        android:textStyle="bold"
-        android:textColor="#FF0000"
-        android:layout_marginTop="20dp"
-        android:padding="10dp"
-        android:elevation="4dp" />
-
-
-    <TextView
-        android:id="@+id/txtSubtitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/txtTitulo"
-        android:layout_centerHorizontal="true"
-        android:text="Tipos de productos disponibles"
-        android:textSize="18sp"
-        android:textColor="#00FFFF"
-        android:layout_marginTop="12dp" />
-
-
-    <ListView
-        android:id="@+id/listViewProductos"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_below="@id/txtSubtitulo"
-        android:layout_marginTop="16dp"
-        android:divider="#000000"
-        android:dividerHeight="2dp"
-        android:background="@android:color/white"
-        android:layout_alignParentBottom="true"
-        android:padding="8dp"
+        android:scrollbars="vertical"
         android:clipToPadding="false" />
+
+    <!-- Contenedor de botones con fondo y bordes -->
+    <LinearLayout
+        android:id="@+id/containerBotones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:padding="12dp"
+        android:layout_margin="8dp"
+        android:background="@drawable/fondo_botones"
+        android:elevation="6dp">
+
+        <Button
+            android:id="@+id/btnSensores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Ir a Sensores"
+            android:backgroundTint="#03A9F4"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="8dp"
+            android:drawableLeft="@android:drawable/ic_menu_compass"
+            android:padding="10dp"/>
+
+        <Button
+            android:id="@+id/btnAgregar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Agregar Carro"
+            android:backgroundTint="#4CAF50"
+            android:textColor="#FFFFFF"
+            android:drawableLeft="@android:drawable/ic_input_add"
+            android:padding="10dp"/>
+    </LinearLayout>
+
 </RelativeLayout>

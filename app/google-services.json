@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "539457497176",
+    "project_id": "meetcars-4d106",
+    "storage_bucket": "meetcars-4d106.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:539457497176:android:09794f393e5995f73d022d",
+        "android_client_info": {
+          "package_name": "com.example.miprimeraaplicacion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAK65yUdnS0O_uz_SmnjKlKyGYsON6nGSM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
