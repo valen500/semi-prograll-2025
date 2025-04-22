@@ -40,6 +40,26 @@
         android:hint="Precio"
         android:inputType="numberDecimal"
         android:padding="12dp" />
+    <EditText
+        android:id="@+id/etCosto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Costo"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/etGanancia"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ganancia"
+        android:inputType="numberDecimal" />
+
+    <EditText
+        android:id="@+id/etStock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Stock"
+        android:inputType="number" />
 
     <Button
         android:id="@+id/btneditar"

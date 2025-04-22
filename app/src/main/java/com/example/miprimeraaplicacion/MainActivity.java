@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.item_add) {
-            // Asegúrate que esta línea está exactamente así
+
             startActivity(new Intent(MainActivity.this, AddProductActivity.class));
             return true;
         }

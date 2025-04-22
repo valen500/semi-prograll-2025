@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "573842170571",
+    "project_id": "brian-e0890",
+    "storage_bucket": "brian-e0890.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:573842170571:android:9ad2bd6c25c6731212f14e",
+        "android_client_info": {
+          "package_name": "com.example.miprimeraaplicacion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqNyBd6e0pH00iKx9nlZ4HrrAcXS_F-G4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

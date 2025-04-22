@@ -36,7 +36,6 @@ public class ProductAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         Log.d(TAG, "Configurando vista");
 
-
         TextView txtCodigo = view.findViewById(R.id.txtCodigo);
         TextView txtDescripcion = view.findViewById(R.id.txtDescripcion);
         TextView txtPresentacion = view.findViewById(R.id.txtPresentacion);
@@ -44,13 +43,21 @@ public class ProductAdapter extends CursorAdapter {
         ImageButton btnOptions = view.findViewById(R.id.btnOptions);
         ImageView imgProducto = view.findViewById(R.id.imgProducto);
 
-        // Obtener datos del cursor
+
+        TextView tvCosto = view.findViewById(R.id.tvCosto);
+        TextView tvGanancia = view.findViewById(R.id.tvGanancia);
+        TextView tvStock = view.findViewById(R.id.tvStock);
+
+
         int id = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
         String codigo = cursor.getString(cursor.getColumnIndexOrThrow("codigo"));
         String descripcion = cursor.getString(cursor.getColumnIndexOrThrow("descripcion"));
         String presentacion = cursor.getString(cursor.getColumnIndexOrThrow("presentacion"));
         String marca = cursor.getString(cursor.getColumnIndexOrThrow("marca"));
         double precio = cursor.getDouble(cursor.getColumnIndexOrThrow("precio"));
+        double costo = cursor.getDouble(cursor.getColumnIndexOrThrow("costo"));
+        double ganancia = cursor.getDouble(cursor.getColumnIndexOrThrow("ganancia"));
+        int stock = cursor.getInt(cursor.getColumnIndexOrThrow("stock"));
         String foto = cursor.getString(cursor.getColumnIndexOrThrow("foto"));
 
         // Mostrar datos
@@ -58,9 +65,14 @@ public class ProductAdapter extends CursorAdapter {
         txtDescripcion.setText("Descripción: " + descripcion);
         txtPresentacion.setText("Presentación: " + presentacion);
         txtPrecio.setText("Precio: $" + String.format("%.2f", precio));
-        imgProducto.setImageResource(R.drawable.logo);
+        imgProducto.setImageResource(R.drawable.logo); // Puedes personalizar esto si usas imágenes reales
 
-        // Configurar botón de opciones
+
+        tvCosto.setText("Costo: $" + String.format("%.2f", costo));
+        tvGanancia.setText("Ganancia: $" + String.format("%.2f", ganancia));
+        tvStock.setText("Stock: " + stock);
+
+
         btnOptions.setOnClickListener(v -> {
             Log.d(TAG, "Botón de opciones clickeado para el producto ID: " + id);
             showPopupMenu(v, id);
@@ -78,15 +90,12 @@ public class ProductAdapter extends CursorAdapter {
                 Log.d(TAG, "Ítem del menú seleccionado: " + item.getTitle());
 
                 if (item.getItemId() == R.id.item_edit) {
-                    Log.d(TAG, "Editando producto ID: " + productId);
                     editProduct(productId);
                     return true;
                 } else if (item.getItemId() == R.id.item_delete) {
-                    Log.d(TAG, "Eliminando producto ID: " + productId);
                     deleteProduct(productId);
                     return true;
                 } else if (item.getItemId() == R.id.item_add) {
-                    Log.d(TAG, "Agregar nuevo producto seleccionado");
                     agregarNuevoProducto();
                     return true;
                 }
@@ -105,8 +114,6 @@ public class ProductAdapter extends CursorAdapter {
     }
 
     private void editProduct(int productId) {
-        Log.d(TAG, "Iniciando edición para el producto ID: " + productId);
-
         Cursor cursor = db.getProductById(productId);
         if (cursor != null && cursor.moveToFirst()) {
             try {
@@ -118,9 +125,9 @@ public class ProductAdapter extends CursorAdapter {
                 intent.putExtra("marca", cursor.getString(cursor.getColumnIndexOrThrow("marca")));
                 intent.putExtra("precio", cursor.getDouble(cursor.getColumnIndexOrThrow("precio")));
                 intent.putExtra("foto", cursor.getString(cursor.getColumnIndexOrThrow("foto")));
+                // Si deseas pasar más datos aquí, agrégalos igual
 
                 mContext.startActivity(intent);
-                Log.d(TAG, "Actividad de edición iniciada");
             } catch (Exception e) {
                 Log.e(TAG, "Error al iniciar actividad de edición", e);
                 Toast.makeText(mContext, "Error al editar producto", Toast.LENGTH_SHORT).show();
@@ -128,31 +135,23 @@ public class ProductAdapter extends CursorAdapter {
                 cursor.close();
             }
         } else {
-            Log.w(TAG, "No se encontró el producto con ID: " + productId);
             Toast.makeText(mContext, "Producto no encontrado", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void deleteProduct(int productId) {
-        Log.d(TAG, "Eliminando producto ID: " + productId);
-
         if (db.deleteProduct(productId)) {
-            Log.d(TAG, "Producto eliminado exitosamente");
             changeCursor(db.getAllProducts());
             Toast.makeText(mContext, "Producto eliminado", Toast.LENGTH_SHORT).show();
         } else {
-            Log.w(TAG, "Error al eliminar producto");
             Toast.makeText(mContext, "Error al eliminar producto", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void agregarNuevoProducto() {
-        Log.d(TAG, "Iniciando actividad para agregar nuevo producto");
-
         try {
             Intent intent = new Intent(mContext, AddProductActivity.class);
             mContext.startActivity(intent);
-            Log.d(TAG, "Actividad de agregar producto iniciada");
         } catch (Exception e) {
             Log.e(TAG, "Error al iniciar actividad de agregar producto", e);
             Toast.makeText(mContext, "Error al abrir pantalla de agregar", Toast.LENGTH_SHORT).show();
@@ -161,7 +160,6 @@ public class ProductAdapter extends CursorAdapter {
 
     @Override
     public void changeCursor(Cursor newCursor) {
-        Log.d(TAG, "Cambiando cursor del adaptador");
         super.changeCursor(newCursor);
     }
 }

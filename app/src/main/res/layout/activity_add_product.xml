@@ -66,11 +66,38 @@
             android:layout_marginTop="8dp"/>
 
         <EditText
+            android:id="@+id/etCosto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Costo"
+            android:inputType="numberDecimal"
+            android:padding="12dp"
+            android:layout_marginTop="8dp"/>
+
+        <EditText
+            android:id="@+id/etGanancia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ganancia"
+            android:inputType="numberDecimal"
+            android:padding="12dp"
+            android:layout_marginTop="8dp"/>
+
+        <EditText
             android:id="@+id/etPrecio"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Precio"
             android:inputType="numberDecimal"
+            android:padding="12dp"
+            android:layout_marginTop="8dp"/>
+
+        <EditText
+            android:id="@+id/etStock"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Stock"
+            android:inputType="number"
             android:padding="12dp"
             android:layout_marginTop="8dp"/>
 
