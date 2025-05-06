@@ -1,5 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name"></string>
-    <string name="edit_button_description">Editar</string>
-    <string name="delete_button_description">Eliminar</string>
+    <string name="app_name">Mi Primera Aplicación</string>
+
+    <string-array name="opciones_saludable">
+        <item>Muy saludable</item>
+        <item>Saludable</item>
+        <item>Poco saludable</item>
+    </string-array>
+
+    <string-array name="opciones_ejercicio">
+        <item>Nada</item>
+        <item>Ligero</item>
+        <item>Intenso</item>
+    </string-array>
+
+    <string-array name="opciones_agua">
+        <item>1 vaso</item>
+        <item>2-4 vasos</item>
+        <item>5+ vasos</item>
+    </string-array>
+
+    <string-array name="opciones_emocion">
+        <item>Feliz</item>
+        <item>Triste</item>
+        <item>Estresado</item>
+        <item>Neutral</item>
+    </string-array>
 </resources>

@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "539457497176",
-    "project_id": "meetcars-4d106",
-    "storage_bucket": "meetcars-4d106.firebasestorage.app"
+    "project_number": "850025374842",
+    "project_id": "vida-saludable-e3dfc",
+    "storage_bucket": "vida-saludable-e3dfc.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:539457497176:android:09794f393e5995f73d022d",
+        "mobilesdk_app_id": "1:850025374842:android:d282f77770862e2df607c3",
         "android_client_info": {
           "package_name": "com.example.miprimeraaplicacion"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAK65yUdnS0O_uz_SmnjKlKyGYsON6nGSM"
+          "current_key": "AIzaSyCx-EEAKzN_qQqp74EV0h-4s9vO86WBuY0"
         }
       ],
       "services": {
