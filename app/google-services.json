@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "814703909052",
+    "project_id": "practica-d157e",
+    "storage_bucket": "practica-d157e.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:814703909052:android:b98ef1477e9231240998b9",
+        "android_client_info": {
+          "package_name": "com.example.miprimeraaplicacion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRrDm20w06knXSxsU-Lp-zI-dI_uyFwnw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
