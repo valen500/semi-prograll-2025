@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient"
@@ -13,7 +14,7 @@
         android:gravity="center_horizontal">
 
         <TextView
-            android:text="Bienvenido a Mi Bienestar "
+            android:text="Bienvenido a Mi Bienestar"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
@@ -74,6 +75,40 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
+            <!-- Tarjeta Multimedia -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardMultimedia"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                card_view:cardCornerRadius="16dp"
+                card_view:cardElevation="8dp"
+                android:backgroundTint="#AB47BC">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:src="@drawable/ic_multimedia"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:tint="#FFFFFF" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="crear Registro Fisico"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
             <!-- Tarjeta Sensores -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardSensores"
@@ -101,40 +136,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Sensores"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:layout_marginTop="8dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Tarjeta Multimedia -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardMultimedia"
-                android:layout_width="0dp"
-                android:layout_height="160dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                card_view:cardCornerRadius="16dp"
-                card_view:cardElevation="8dp"
-                android:backgroundTint="#AB47BC">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:src="@drawable/ic_multimedia"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:tint="#FFFFFF" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Multimedia"
                         android:textColor="#FFFFFF"
                         android:textSize="16sp"
                         android:textStyle="bold"
@@ -176,40 +177,6 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Tarjeta Logout -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardLogout"
-                android:layout_width="0dp"
-                android:layout_height="160dp"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                card_view:cardCornerRadius="16dp"
-                card_view:cardElevation="8dp"
-                android:backgroundTint="#EF5350">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:src="@drawable/ic_logout"
-                        android:layout_width="48dp"
-                        android:layout_height="48dp"
-                        android:tint="#FFFFFF" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Cerrar sesión"
-                        android:textColor="#FFFFFF"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:layout_marginTop="8dp" />
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
             <!-- Tarjeta Ver Registros -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardVerRegistros"
@@ -237,6 +204,74 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Ver Registros"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Tarjeta Registro Físico -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardRegistroFisico"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                card_view:cardCornerRadius="16dp"
+                card_view:cardElevation="8dp"
+                android:backgroundTint="#42A5F5">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:src="@drawable/ic_fitness_center"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:tint="#FFFFFF" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Registro Físico"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:layout_marginTop="8dp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Tarjeta Logout -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardLogout"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_columnWeight="1"
+                android:layout_margin="8dp"
+                card_view:cardCornerRadius="16dp"
+                card_view:cardElevation="8dp"
+                android:backgroundTint="#EF5350">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:src="@drawable/ic_logout"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:tint="#FFFFFF" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Cerrar sesión"
                         android:textColor="#FFFFFF"
                         android:textSize="16sp"
                         android:textStyle="bold"

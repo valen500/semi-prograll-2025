@@ -5,8 +5,7 @@ import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,6 +18,8 @@ public class RegistroSaludActivity extends AppCompatActivity {
     CheckBox ejercicioCheckBox, comidaCheckBox;
     Spinner spinnerSaludable, spinnerEjercicio, spinnerAgua, spinnerEmocion;
     Button guardarButton;
+
+    DatabaseHelper dbHelper;  // NUEVO
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,8 @@ public class RegistroSaludActivity extends AppCompatActivity {
         spinnerEmocion = findViewById(R.id.spinnerEmocion);
         guardarButton = findViewById(R.id.guardarButton);
 
+        dbHelper = new DatabaseHelper(this);  // NUEVO
+
         guardarButton.setOnClickListener(v -> {
             try {
                 String fecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
@@ -46,7 +49,7 @@ public class RegistroSaludActivity extends AppCompatActivity {
                 String agua = spinnerAgua.getSelectedItem().toString();
                 String emocion = spinnerEmocion.getSelectedItem().toString();
 
-                // UID del usuario actual
+                // Guardar en Firebase
                 String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference("registros").child(uid);
                 String key = ref.push().getKey();
@@ -63,7 +66,16 @@ public class RegistroSaludActivity extends AppCompatActivity {
 
                 ref.child(key).setValue(registroFirebase);
 
-                Toast.makeText(this, "Datos guardados correctamente", Toast.LENGTH_SHORT).show();
+                // Guardar en SQLite
+                boolean guardadoLocal = dbHelper.guardarDatos(
+                        fecha, sueno, ejercicio, comida, saludable, ejercicioStr, agua, emocion
+                );
+
+                if (guardadoLocal) {
+                    Toast.makeText(this, "Datos guardados (local y en nube)", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Error al guardar localmente", Toast.LENGTH_SHORT).show();
+                }
 
                 // Limpiar campos
                 fechaEditText.setText("");

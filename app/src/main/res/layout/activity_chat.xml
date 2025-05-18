@@ -1,33 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:background="#FAFAFA"
+    android:padding="12dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/listaMensajes"
+    <!-- Encabezado del chat -->
+    <TextView
+        android:id="@+id/tvTitulo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Chat Público"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:padding="16dp"
+        android:background="#6200EE"/>
+
+    <!-- Área de mensajes -->
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp"/>
+        android:background="#FFFFFF"
+        android:fillViewport="true">
 
+        <LinearLayout
+            android:id="@+id/layoutMensajes"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"/>
+    </ScrollView>
+
+    <!-- Área de escritura -->
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingTop="8dp">
 
         <EditText
             android:id="@+id/etMensaje"
-            android:layout_weight="1"
-            android:hint="Escribe tu mensaje..."
             android:layout_width="0dp"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="Escribe un mensaje..."
+            android:textColor="#000000"
+            android:textColorHint="#9E9E9E"
+            android:background="@drawable/edittext_background"
+            android:padding="12dp"
+            android:inputType="textMultiLine"/>
 
         <Button
             android:id="@+id/btnEnviar"
-            android:text="Enviar"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Enviar"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#03DAC5"
+            android:layout_marginStart="8dp"/>
     </LinearLayout>
 </LinearLayout>

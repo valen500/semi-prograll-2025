@@ -10,20 +10,24 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class MainMenuActivity extends AppCompatActivity {
 
-    CardView cardRegistroSalud, cardSensores, cardMultimedia, cardChat, cardLogout, cardVerRegistros;
+    CardView cardRegistroSalud, cardSensores, cardMultimedia, cardChat, cardLogout,
+            cardVerRegistros, cardRegistroFisico;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+        // Inicializar todas las CardViews
         cardRegistroSalud = findViewById(R.id.cardRegistroSalud);
         cardSensores = findViewById(R.id.cardSensores);
         cardMultimedia = findViewById(R.id.cardMultimedia);
         cardChat = findViewById(R.id.cardChat);
         cardLogout = findViewById(R.id.cardLogout);
-        cardVerRegistros = findViewById(R.id.cardVerRegistros); // <- Nuevo
+        cardVerRegistros = findViewById(R.id.cardVerRegistros);
+        cardRegistroFisico = findViewById(R.id.cardRegistroFisico); // Nueva CardView
 
+        // Configurar listeners
         cardRegistroSalud.setOnClickListener(v ->
                 startActivity(new Intent(this, RegistroSaludActivity.class)));
 
@@ -43,6 +47,10 @@ public class MainMenuActivity extends AppCompatActivity {
         });
 
         cardVerRegistros.setOnClickListener(v ->
-                startActivity(new Intent(this, VerRegistrosActivity.class))); // <- Nuevo
+                startActivity(new Intent(this, VerRegistrosActivity.class)));
+
+
+        cardRegistroFisico.setOnClickListener(v ->
+                startActivity(new Intent(this, RegistroFisicoActivity.class)));
     }
 }

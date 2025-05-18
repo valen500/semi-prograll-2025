@@ -15,7 +15,7 @@
         android:scrollbars="vertical"
         android:clipToPadding="false" />
 
-    <!-- Contenedor de botones con fondo y bordes -->
+
     <LinearLayout
         android:id="@+id/containerBotones"
         android:layout_width="match_parent"

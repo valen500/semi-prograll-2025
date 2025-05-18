@@ -54,6 +54,7 @@
         <activity android:name=".MultimediaActivity" />
         <activity android:name=".ChatActivity"/>
         <activity android:name=".VerRegistrosActivity"/>
+        <activity android:name=".RegistroFisicoActivity" />
 
         <!-- File provider para compartir archivos/imágenes -->
         <provider
