@@ -19,7 +19,7 @@ public class RegistroSaludActivity extends AppCompatActivity {
     Spinner spinnerSaludable, spinnerEjercicio, spinnerAgua, spinnerEmocion;
     Button guardarButton;
 
-    DatabaseHelper dbHelper;  // NUEVO
+    DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

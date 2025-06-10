@@ -7,6 +7,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -15,18 +16,29 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
 
     private SensorManager sensorManager;
     private Sensor acelerometro, luz, proximidad;
-    private TextView acelerometroText, luzText, proximidadText, gpsText;
+    private TextView pasosText, luzText, proximidadText, gpsText;
+    private Button btnReiniciar, btnDetener;
     private LocationManager locationManager;
+
+    private int contadorPasos = 0;
+    private float aceleracionPrevia = 0;
+    private float aceleracionActual = 0;
+    private float delta = 0;
+    private static final float UMBRAL_SALTO = 6.0f;
+
+    private boolean contadorActivo = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sensor);
 
-        acelerometroText = findViewById(R.id.acelerometroText);
+        pasosText = findViewById(R.id.pasosText);
         luzText = findViewById(R.id.luzText);
         proximidadText = findViewById(R.id.proximidadText);
         gpsText = findViewById(R.id.gpsText);
+        btnReiniciar = findViewById(R.id.btnReiniciar);
+        btnDetener = findViewById(R.id.btnDetener);
 
         sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
         acelerometro = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -39,6 +51,16 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
         } else {
             startLocationUpdates();
         }
+
+        btnReiniciar.setOnClickListener(v -> {
+            contadorPasos = 0;
+            pasosText.setText("Pasos: 0");
+            contadorActivo = true;
+        });
+
+        btnDetener.setOnClickListener(v -> {
+            contadorActivo = false;
+        });
     }
 
     private void startLocationUpdates() {
@@ -60,7 +82,7 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
     protected void onResume() {
         super.onResume();
         if (acelerometro != null)
-            sensorManager.registerListener(this, acelerometro, SensorManager.SENSOR_DELAY_NORMAL);
+            sensorManager.registerListener(this, acelerometro, SensorManager.SENSOR_DELAY_UI);
         if (luz != null)
             sensorManager.registerListener(this, luz, SensorManager.SENSOR_DELAY_NORMAL);
         if (proximidad != null)
@@ -75,9 +97,21 @@ public class SensorActivity extends AppCompatActivity implements SensorEventList
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        if (!contadorActivo) return;
+
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
-            acelerometroText.setText("Acelerómetro:\nX: " + event.values[0] +
-                    " Y: " + event.values[1] + " Z: " + event.values[2]);
+            float x = event.values[0];
+            float y = event.values[1];
+            float z = event.values[2];
+
+            aceleracionPrevia = aceleracionActual;
+            aceleracionActual = (float) Math.sqrt(x * x + y * y + z * z);
+            delta = aceleracionActual - aceleracionPrevia;
+
+            if (delta > UMBRAL_SALTO) {
+                contadorPasos++;
+                pasosText.setText("Pasos: " + contadorPasos);
+            }
         } else if (event.sensor.getType() == Sensor.TYPE_LIGHT) {
             luzText.setText("Sensor de Luz: " + event.values[0]);
         } else if (event.sensor.getType() == Sensor.TYPE_PROXIMITY) {

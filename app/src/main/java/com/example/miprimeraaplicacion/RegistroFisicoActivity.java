@@ -40,10 +40,10 @@ public class RegistroFisicoActivity extends AppCompatActivity {
     }
 
     private void cargarDatosSQLite() {
-        listaRegistros.clear();
         List<Registro> registros = databaseHelper.obtenerRegistrosFisicos();
 
         if (registros != null && !registros.isEmpty()) {
+            listaRegistros.clear();
             listaRegistros.addAll(registros);
             adapter.notifyDataSetChanged();
         } else {
@@ -55,9 +55,6 @@ public class RegistroFisicoActivity extends AppCompatActivity {
         firebaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                listaRegistros.clear();
-                cargarDatosSQLite();
-
                 if (snapshot.exists()) {
                     for (DataSnapshot ds : snapshot.getChildren()) {
                         Registro reg = ds.getValue(Registro.class);

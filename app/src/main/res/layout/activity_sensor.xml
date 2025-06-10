@@ -1,44 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="24dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
 
+        <!-- TÍTULO PRINCIPAL -->
         <TextView
-            android:id="@+id/acelerometroText"
-            android:text="Acelerómetro: ---"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:id="@+id/tvTitulo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="👣 Contador de Pasos y Sensores"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:gravity="center"
+            android:padding="16dp"
+            android:background="#6200EE"
+            android:layout_marginBottom="24dp" />
 
+        <!-- PASOS -->
+        <TextView
+            android:id="@+id/pasosText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pasos: 0"
+            android:textSize="18sp"
+            android:textColor="#212121"
+            android:layout_marginBottom="16dp" />
+
+        <!-- LUZ -->
         <TextView
             android:id="@+id/luzText"
-            android:text="Sensor de Luz: ---"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Sensor de Luz: ---"
+            android:textSize="18sp"
+            android:textColor="#212121"
+            android:layout_marginBottom="16dp" />
 
+        <!-- PROXIMIDAD -->
         <TextView
             android:id="@+id/proximidadText"
-            android:text="Proximidad: ---"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Proximidad: ---"
+            android:textSize="18sp"
+            android:textColor="#212121"
+            android:layout_marginBottom="16dp" />
 
+        <!-- GPS -->
         <TextView
             android:id="@+id/gpsText"
-            android:text="GPS: ---"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="GPS: ---"
+            android:textSize="18sp"
+            android:textColor="#212121"
+            android:layout_marginBottom="16dp" />
+
+        <!-- BOTONES -->
+        <Button
+            android:id="@+id/btnReiniciar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="🔄 Reiniciar contador"
+            android:backgroundTint="#03A9F4"
+            android:textColor="#FFFFFF"
+            android:textAllCaps="false"
+            android:layout_marginTop="16dp" />
+
+        <Button
+            android:id="@+id/btnDetener"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="⏸ Detener contador"
+            android:backgroundTint="#F44336"
+            android:textColor="#FFFFFF"
+            android:textAllCaps="false"
+            android:layout_marginTop="8dp" />
 
     </LinearLayout>
 </ScrollView>

@@ -1,29 +1,34 @@
-// MultimediaActivity.java
 package com.example.miprimeraaplicacion;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.ColorStateList;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.widget.*;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MultimediaActivity extends AppCompatActivity {
 
@@ -35,10 +40,13 @@ public class MultimediaActivity extends AppCompatActivity {
     MediaRecorder mediaRecorder;
     MediaPlayer mediaPlayer;
     String audioPath;
+    String imagenUri = "";
     boolean isRecording = false;
 
     static final int REQUEST_FOTO = 1;
     static final int REQUEST_GALERIA = 2;
+
+    Uri fotoUri;
 
     DatabaseHelper dbHelper;
     DatabaseReference firebaseRef;
@@ -48,7 +56,6 @@ public class MultimediaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_multimedia);
 
-        // Enlazar vistas
         etFecha = findViewById(R.id.etFecha);
         etPeso = findViewById(R.id.etPeso);
         btnTomarFoto = findViewById(R.id.btnTomarFoto);
@@ -64,19 +71,48 @@ public class MultimediaActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         firebaseRef = FirebaseDatabase.getInstance().getReference("registros");
 
-        ActivityCompat.requestPermissions(this, new String[]{
-                Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                Manifest.permission.CAMERA
-        }, 1);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.READ_MEDIA_IMAGES
+            }, 1);
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+            }, 1);
+        }
+
+
+        etFecha.setFocusable(false);
+        etFecha.setOnClickListener(v -> mostrarDatePicker());
 
         btnTomarFoto.setOnClickListener(v -> {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-            startActivityForResult(intent, REQUEST_FOTO);
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                File photoFile;
+                try {
+                    photoFile = createImageFile();
+                    fotoUri = FileProvider.getUriForFile(
+                            this,
+                            "com.example.miprimeraaplicacion.fileprovider",
+                            photoFile
+                    );
+                    intent.putExtra(MediaStore.EXTRA_OUTPUT, fotoUri);
+                    startActivityForResult(intent, REQUEST_FOTO);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(this, "Error al crear archivo de imagen", Toast.LENGTH_SHORT).show();
+                }
+            }
         });
 
         btnSeleccionarImagen.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.setType("image/*");
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
             startActivityForResult(intent, REQUEST_GALERIA);
         });
 
@@ -93,8 +129,22 @@ public class MultimediaActivity extends AppCompatActivity {
         btnReproducirVideo.setOnClickListener(v -> {
             Uri videoUri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.raw);
             videoView.setVideoURI(videoUri);
-            videoView.start();
+
+            // Asegurar que el VideoView se muestra completo
+            videoView.setOnPreparedListener(mp -> {
+                // Mantener proporción o ajustar si es necesario
+                mp.setOnVideoSizeChangedListener((mp1, width, height) -> {
+                    // Esto fuerza el video a ocupar el tamaño definido en el layout
+                    videoView.setScaleX(1.0f);
+                    videoView.setScaleY(1.0f);
+                });
+
+                videoView.start();
+            });
+
+            videoView.setZOrderOnTop(false);
         });
+
 
         btnGuardarRegistro.setOnClickListener(v -> {
             String fecha = etFecha.getText().toString();
@@ -103,16 +153,24 @@ public class MultimediaActivity extends AppCompatActivity {
             if (fecha.isEmpty() || peso.isEmpty()) {
                 Toast.makeText(this, "Completa todos los campos", Toast.LENGTH_SHORT).show();
             } else {
-                // Guardar en SQLite
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                 ContentValues values = new ContentValues();
                 values.put("fecha", fecha);
                 values.put("peso", peso);
+                values.put("imagenUri", imagenUri);
+                values.put("audioPath", audioPath);
                 db.insert("registro", null, values);
 
-                // Guardar en Firebase
                 String id = firebaseRef.push().getKey();
-                Registro registro = new Registro(id, fecha, peso);
+                Registro registro = new Registro(
+                        id,
+                        fecha,
+                        peso,
+                        imagenUri != null ? imagenUri : "",
+                        audioPath != null ? audioPath : "",
+                        ""
+                );
+
                 if (id != null) {
                     firebaseRef.child(id).setValue(registro);
                 }
@@ -125,7 +183,36 @@ public class MultimediaActivity extends AppCompatActivity {
         btnReproducirAudio.setText("Reproducir Audio");
         btnReproducirAudio.setEnabled(false);
         btnDetenerGrabacion.setEnabled(false);
-        btnDetenerGrabacion.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
+        btnDetenerGrabacion.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.GRAY));
+    }
+
+    private void mostrarDatePicker() {
+        final Calendar calendar = Calendar.getInstance();
+
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                (view, selectedYear, selectedMonth, selectedDay) -> {
+                    String fechaFormateada = String.format("%02d / %02d / %04d",
+                            selectedDay, selectedMonth + 1, selectedYear);
+                    etFecha.setText(fechaFormateada);
+                },
+                year, month, day
+        );
+
+        datePickerDialog.show();
+    }
+
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = getExternalCacheDir();
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+        imagenUri = Uri.fromFile(image).toString();
+        return image;
     }
 
     private void iniciarGrabacion() {
@@ -142,7 +229,7 @@ public class MultimediaActivity extends AppCompatActivity {
             isRecording = true;
             btnGrabarAudio.setEnabled(false);
             btnDetenerGrabacion.setEnabled(true);
-            btnDetenerGrabacion.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
+            btnDetenerGrabacion.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.RED));
             btnReproducirAudio.setEnabled(false);
             Toast.makeText(this, "Grabando...", Toast.LENGTH_SHORT).show();
         } catch (IOException e) {
@@ -159,7 +246,7 @@ public class MultimediaActivity extends AppCompatActivity {
             isRecording = false;
             btnGrabarAudio.setEnabled(true);
             btnDetenerGrabacion.setEnabled(false);
-            btnDetenerGrabacion.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
+            btnDetenerGrabacion.setBackgroundTintList(android.content.res.ColorStateList.valueOf(Color.GRAY));
             btnReproducirAudio.setEnabled(true);
             Toast.makeText(this, "Grabación finalizada", Toast.LENGTH_SHORT).show();
         } catch (IllegalStateException e) {
@@ -217,13 +304,20 @@ public class MultimediaActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == Activity.RESULT_OK && data != null) {
+        if (resultCode == Activity.RESULT_OK) {
             if (requestCode == REQUEST_FOTO) {
-                Bitmap foto = (Bitmap) data.getExtras().get("data");
-                imageView.setImageBitmap(foto);
-            } else if (requestCode == REQUEST_GALERIA) {
-                Uri imagen = data.getData();
-                imageView.setImageURI(imagen);
+                imageView.setImageURI(fotoUri);
+                imagenUri = fotoUri.toString();
+            } else if (requestCode == REQUEST_GALERIA && data != null) {
+                Uri imagenSeleccionada = data.getData();
+                if (imagenSeleccionada != null) {
+                    getContentResolver().takePersistableUriPermission(
+                            imagenSeleccionada,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION
+                    );
+                    imageView.setImageURI(imagenSeleccionada);
+                    imagenUri = imagenSeleccionada.toString();
+                }
             }
         }
     }
@@ -231,13 +325,9 @@ public class MultimediaActivity extends AppCompatActivity {
     private void limpiarFormulario() {
         etFecha.setText("");
         etPeso.setText("");
-        imageView.setImageDrawable(null);
-        videoView.stopPlayback();
+        imageView.setImageResource(R.drawable.descarga);
         audioPath = null;
-
-        btnReproducirAudio.setText("Reproducir Audio");
+        imagenUri = "";
         btnReproducirAudio.setEnabled(false);
-        btnDetenerGrabacion.setEnabled(false);
-        btnDetenerGrabacion.setBackgroundTintList(ColorStateList.valueOf(Color.GRAY));
     }
 }

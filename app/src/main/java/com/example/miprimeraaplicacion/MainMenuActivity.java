@@ -25,7 +25,7 @@ public class MainMenuActivity extends AppCompatActivity {
         cardChat = findViewById(R.id.cardChat);
         cardLogout = findViewById(R.id.cardLogout);
         cardVerRegistros = findViewById(R.id.cardVerRegistros);
-        cardRegistroFisico = findViewById(R.id.cardRegistroFisico); // Nueva CardView
+        cardRegistroFisico = findViewById(R.id.cardRegistroFisico);
 
         // Configurar listeners
         cardRegistroSalud.setOnClickListener(v ->

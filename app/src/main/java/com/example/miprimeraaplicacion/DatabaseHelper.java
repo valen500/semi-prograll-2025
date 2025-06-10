@@ -11,7 +11,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "salud.db";
-    public static final int DB_VERSION = 2;
+    public static final int DB_VERSION = 3;
 
     public DatabaseHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -33,16 +33,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE registros_fisicos (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "fecha TEXT, " +
-                "peso TEXT)");
+                "peso TEXT, " +
+                "imagenUri TEXT, " +
+                "audioPath TEXT, " +
+                "videoUri TEXT)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 2) {
+        if (oldVersion < 3) {
+            db.execSQL("DROP TABLE IF EXISTS registros_fisicos");
             db.execSQL("CREATE TABLE registros_fisicos (" +
                     "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     "fecha TEXT, " +
-                    "peso TEXT)");
+                    "peso TEXT, " +
+                    "imagenUri TEXT, " +
+                    "audioPath TEXT, " +
+                    "videoUri TEXT)");
         }
     }
 
@@ -64,28 +71,35 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return result != -1;
     }
 
-    // Guarda registros físicos simples (fecha y peso)
-    public boolean guardarRegistroFisico(String fecha, String peso) {
+    // Guarda registros físicos con imagen, audio y video
+    public boolean guardarRegistroFisico(String fecha, String peso, String imagenUri, String audioPath, String videoUri) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("fecha", fecha);
         values.put("peso", peso);
+        values.put("imagenUri", imagenUri);
+        values.put("audioPath", audioPath);
+        values.put("videoUri", videoUri);
 
         long result = db.insert("registros_fisicos", null, values);
         return result != -1;
     }
 
-    // Devuelve registros físicos  de la clase Registro
+    // Devuelve registros físicos como lista de objetos Registro
     public List<Registro> obtenerRegistrosFisicos() {
         List<Registro> registros = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT id, fecha, peso FROM registros_fisicos ORDER BY id DESC", null);
+        Cursor cursor = db.rawQuery("SELECT id, fecha, peso, imagenUri, audioPath, videoUri FROM registros_fisicos ORDER BY id DESC", null);
 
         while (cursor.moveToNext()) {
             String id = String.valueOf(cursor.getInt(0));
             String fecha = cursor.getString(1);
             String peso = cursor.getString(2);
-            registros.add(new Registro(id, fecha, peso));
+            String imagenUri = cursor.getString(3);
+            String audioPath = cursor.getString(4);
+            String videoUri = cursor.getString(5);
+
+            registros.add(new Registro(id, fecha, peso, imagenUri, audioPath, videoUri));
         }
 
         cursor.close();

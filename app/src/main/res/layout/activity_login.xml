@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="32dp"
-    android:background="@drawable/button_gradient">
+    android:background="@drawable/background_gradient">
 
     <TextView
         android:id="@+id/titleText"
@@ -20,9 +20,9 @@
         android:id="@+id/emailEditText"
         android:hint="Correo electrónico"
         android:inputType="textEmailAddress"
-        android:drawableLeft="@android:drawable/ic_dialog_email"
+        android:drawableStart="@android:drawable/ic_dialog_email"
         android:background="@drawable/rounded_shadow"
-        android:padding="14dp"
+        android:padding="16dp"
         android:textColor="#2C3E50"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -31,9 +31,9 @@
         android:id="@+id/passwordEditText"
         android:hint="Contraseña"
         android:inputType="textPassword"
-        android:drawableLeft="@android:drawable/ic_lock_lock"
+        android:drawableStart="@android:drawable/ic_lock_lock"
         android:background="@drawable/rounded_shadow"
-        android:padding="14dp"
+        android:padding="16dp"
         android:textColor="#2C3E50"
         android:layout_marginTop="16dp"
         android:layout_width="match_parent"
@@ -46,15 +46,15 @@
         android:textColor="#FFFFFF"
         android:background="@drawable/button_gradient"
         android:layout_marginTop="28dp"
-        android:elevation="6dp"
+        android:elevation="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="14dp" />
+        android:padding="16dp" />
 
     <TextView
         android:id="@+id/registerTextView"
         android:text="¿No tienes cuenta? Regístrate"
-        android:textColor="#BBDEFB"
+        android:textColor="#FFC107"
         android:textSize="14sp"
         android:textStyle="italic"
         android:layout_marginTop="24dp"

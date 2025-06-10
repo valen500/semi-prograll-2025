@@ -59,7 +59,7 @@
         <!-- File provider para compartir archivos/imágenes -->
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.miprimeraaplicacion.provider"
+            android:authorities="com.example.miprimeraaplicacion.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

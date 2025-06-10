@@ -89,11 +89,11 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void agregarMensajeALayout(String autor, String mensaje, String fecha, boolean esMio) {
-        // Crear contenedor para el mensaje
+        //  contenedor para el mensaje
         LinearLayout mensajeLayout = new LinearLayout(this);
         mensajeLayout.setOrientation(LinearLayout.VERTICAL);
 
-        // Configurar márgenes
+        //  márgenes
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -130,7 +130,7 @@ public class ChatActivity extends AppCompatActivity {
         // Agregar al layout principal
         layoutMensajes.addView(mensajeLayout);
 
-        // Auto-scroll al final
+
         scrollView.post(() -> scrollView.fullScroll(View.FOCUS_DOWN));
     }
 }
