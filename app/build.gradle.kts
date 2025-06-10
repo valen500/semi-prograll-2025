@@ -34,18 +34,17 @@ android {
 }
 
 dependencies {
-    // Firebase BoM
+
     implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
 
-    // Firebase dependencies
     implementation("com.google.firebase:firebase-database")
     implementation("com.google.firebase:firebase-messaging")
     implementation("com.google.firebase:firebase-storage")
 
-    // Firebase UI compatible version (8.0.2)
+
     implementation("com.firebaseui:firebase-ui-storage:8.0.2")
 
-    // AndroidX and UI
+
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
